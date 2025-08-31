@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareerBoost - AI Career Guidance & Resume Builder</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#667eea">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-graduation-cap"></i>
+                <span>CareerBoost</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#resume" class="nav-link">Resume Builder</a>
+                <a href="#career" class="nav-link">Career Guide</a>
+                <a href="#jobs" class="nav-link">Jobs</a>
+                <a href="#interview" class="nav-link">Interview Prep</a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content" data-aos="fade-up">
+            <h1>Build Your Dream Career with AI</h1>
+            <p>AI-powered career guidance, resume building, and job placement assistance for students</p>
+            <div class="hero-buttons">
+                <button class="btn-primary" onclick="scrollToSection('resume')">
+                    <i class="fas fa-file-alt"></i> Build Resume
+                </button>
+                <button class="btn-secondary" onclick="scrollToSection('career')">
+                    <i class="fas fa-compass"></i> Career Guide
+                </button>
+            </div>
+        </div>
+        <div class="hero-image" data-aos="fade-left">
+            <i class="fas fa-rocket"></i>
+        </div>
+    </section>
+
+    <!-- Resume Builder Section -->
+    <section id="resume" class="section">
+        <div class="container">
+            <h2 data-aos="fade-up">🤖 AI-Powered Resume Builder</h2>
+            <div class="resume-builder">
+                <div class="resume-form" data-aos="fade-right">
+                    <div class="form-group">
+                        <label><i class="fas fa-user"></i> Full Name *</label>
+                        <input type="text" id="fullName" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-envelope"></i> Email *</label>
+                        <input type="email" id="email" placeholder="your.email@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-phone"></i> Phone *</label>
+                        <input type="tel" id="phone" placeholder="+91 9876543210" required>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-map-marker-alt"></i> Location</label>
+                        <input type="text" id="location" placeholder="City, State">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-user-tie"></i> Professional Summary</label>
+                        <textarea id="summary" placeholder="Brief professional summary..." rows="4"></textarea>
+                        <button class="ai-suggest-btn" onclick="generateAISummary()">
+                            ✨ AI Generate
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-cogs"></i> Skills</label>
+                        <textarea id="skills" placeholder="JavaScript, Python, React, Node.js..." rows="3"></textarea>
+                        <button class="ai-suggest-btn" onclick="suggestSkills()">
+                            ✨ AI Suggest
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-briefcase"></i> Work Experience</label>
+                        <textarea id="experience" placeholder="Your work experience, internships, projects..." rows="5"></textarea>
+                        <button class="ai-suggest-btn" onclick="enhanceExperience()">
+                            ✨ AI Enhance
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-graduation-cap"></i> Education</label>
+                        <textarea id="education" placeholder="Your educational background..." rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-certificate"></i> Certifications</label>
+                        <textarea id="certifications" placeholder="Relevant certifications..." rows="2"></textarea>
+                    </div>
+                    
+                    <div class="template-selector">
+                        <label><i class="fas fa-palette"></i> Choose Template</label>
+                        <div class="templates">
+                            <div class="template selected" data-template="modern" onclick="selectTemplate('modern')">
+                                <div class="template-preview modern-preview"></div>
+                                <span>Modern</span>
+                            </div>
+                            <div class="template" data-template="classic" onclick="selectTemplate('classic')">
+                                <div class="template-preview classic-preview"></div>
+                                <span>Classic</span>
+                            </div>
+                            <div class="template" data-template="creative" onclick="selectTemplate('creative')">
+                                <div class="template-preview creative-preview"></div>
+                                <span>Creative</span>
+                            </div>
+                            <div class="template" data-template="minimal" onclick="selectTemplate('minimal')">
+                                <div class="template-preview minimal-preview"></div>
+                                <span>Minimal</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button class="btn-primary" onclick="generateResume()">
+                            <i class="fas fa-magic"></i> Generate Resume
+                        </button>
+                        <button class="btn-secondary" onclick="clearForm()">
+                            <i class="fas fa-trash"></i> Clear Form
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="resume-preview" data-aos="fade-left">
+                    <div id="resumePreview" class="resume-output">
+                        <div class="preview-placeholder">
+                            <i class="fas fa-file-alt"></i>
+                            <p>Resume preview will appear here</p>
+                            <small>Fill the form and click "Generate Resume"</small>
+                        </div>
+                    </div>
+                    <div class="preview-actions" style="display:none;" id="previewActions">
+                        <button class="btn-primary" onclick="downloadResume()">
+                            <i class="fas fa-download"></i> Download PDF
+                        </button>
+                        <button class="btn-secondary" onclick="shareResume()">
+                            <i class="fas fa-share"></i> Share
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Career Guidance Section -->
+    <section id="career" class="section bg-light">
+        <div class="container">
+            <h2 data-aos="fade-up">🎯 AI Career Guidance</h2>
+            <div class="career-tools">
+                <div class="career-card" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fas fa-brain"></i>
+                    <h3>Skills Assessment</h3>
+                    <p>Discover your strengths and skill gaps with AI analysis</p>
+                    <button class="btn-primary" onclick="startSkillsAssessment()">
+                        Start Assessment
+                    </button>
+                </div>
+                <div class="career-card" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fas fa-route"></i>
+                    <h3>Career Path</h3>
+                    <p>Get personalized career recommendations based on your profile</p>
+                    <button class="btn-primary" onclick="getCareerPath()">
+                        Explore Paths
+                    </button>
+                </div>
+                <div class="career-card" data-aos="fade-up" data-aos-delay="300">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Salary Insights</h3>
+                    <p>Know market salary trends for your desired role</p>
+                    <button class="btn-primary" onclick="getSalaryInsights()">
+                        View Insights
+                    </button>
+                </div>
+                <div class="career-card" data-aos="fade-up" data-aos-delay="400">
+                    <i class="fas fa-lightbulb"></i>
+                    <h3>Skill Recommendations</h3>
+                    <p>AI-powered suggestions for skills to learn next</p>
+                    <button class="btn-primary" onclick="getSkillRecommendations()">
+                        Get Suggestions
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Job Listings Section -->
+    <section id="jobs" class="section">
+        <div class="container">
+            <h2 data-aos="fade-up">💼 Latest Job Opportunities</h2>
+            <div class="job-filters" data-aos="fade-up">
+                <div class="filter-group">
+                    <input type="text" id="jobSearch" placeholder="Search jobs, companies, skills...">
+                    <i class="fas fa-search"></i>
+                </div>
+                <select id="jobLocation">
+                    <option value="">All Locations</option>
+                    <option value="bangalore">Bangalore</option>
+                    <option value="mumbai">Mumbai</option>
+                    <option value="delhi">Delhi</option>
+                    <option value="pune">Pune</option>
+                    <option value="hyderabad">Hyderabad</option>
+                    <option value="chennai">Chennai</option>
+                    <option value="remote">Remote</option>
+                </select>
+                <select id="jobType">
+                    <option value="">All Types</option>
+                    <option value="fulltime">Full Time</option>
+                    <option value="parttime">Part Time</option>
+                    <option value="internship">Internship</option>
+                    <option value="contract">Contract</option>
+                    <option value="remote">Remote</option>
+                </select>
+                <select id="experienceLevel">
+                    <option value="">All Levels</option>
+                    <option value="fresher">Fresher</option>
+                    <option value="1-3">1-3 Years</option>
+                    <option value="3-5">3-5 Years</option>
+                    <option value="5+">5+ Years</option>
+                </select>
+                <button class="btn-primary" onclick="searchJobs()">
+                    <i class="fas fa-search"></i> Search
+                </button>
+            </div>
+            <div id="jobListings" class="job-listings" data-aos="fade-up">
+                <!-- Jobs will be populated here -->
+            </div>
+            <div class="load-more" style="display:none;">
+                <button class="btn-secondary" onclick="loadMoreJobs()">
+                    Load More Jobs
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interview Preparation Section -->
+    <section id="interview" class="section bg-light">
+        <div class="container">
+            <h2 data-aos="fade-up">🎤 AI Interview Preparation</h2>
+            <div class="interview-prep">
+                <div class="prep-card" data-aos="fade-right">
+                    <h3>Practice Questions</h3>
+                    <p>Get AI-generated interview questions based on your field</p>
+                    <div class="question-selector">
+                        <select id="questionCategory">
+                            <option value="technical">Technical Questions</option>
+                            <option value="behavioral">Behavioral Questions</option>
+                            <option value="situational">Situational Questions</option>
+                            <option value="general">General Questions</option>
+                            <option value="hr">HR Questions</option>
+                        </select>
+                        <select id="jobRole">
+                            <option value="">Select Job Role</option>
+                            <option value="frontend">Frontend Developer</option>
+                            <option value="backend">Backend Developer</option>
+                            <option value="fullstack">Full Stack Developer</option>
+                            <option value="data-analyst">Data Analyst</option>
+                            <option value="ui-ux">UI/UX Designer</option>
+                            <option value="product-manager">Product Manager</option>
+                            <option value="marketing">Marketing</option>
+                        </select>
+                        <button class="btn-primary" onclick="generateQuestions()">
+                            Generate Questions
+                        </button>
+                    </div>
+                    <div id="questionsList" class="questions-list"></div>
+                </div>
+                
+                <div class="prep-card" data-aos="fade-left">
+                    <h3>Interview Tips & Strategies</h3>
+                    <div class="tips-list">
+                        <div class="tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <div>
+                                <strong>Research the Company</strong>
+                                <p>Study company culture, recent news, and values</p>
+                            </div>
+                        </div>
+                        <div class="tip">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <strong>Practice STAR Method</strong>
+                                <p>Situation, Task, Action, Result for behavioral questions</p>
+                            </div>
+                        </div>
+                        <div class="tip">
+                            <i class="fas fa-user-tie"></i>
+                            <div>
+                                <strong>Dress Appropriately</strong>
+                                <p>Professional attire matching company culture</p>
+                            </div>
+                        </div>
+                        <div class="tip">
+                            <i class="fas fa-comments"></i>
+                            <div>
+                                <strong>Prepare Questions</strong>
+                                <p>Ask thoughtful questions about role and company</p>
+                            </div>
+                        </div>
+                        <div class="tip">
+                            <i class="fas fa-handshake"></i>
+                            <div>
+                                <strong>Follow Up</strong>
+                                <p>Send thank you email within 24 hours</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mock-interview">
+                        <h4>Mock Interview Simulator</h4>
+                        <p>Practice with AI-powered mock interviews</p>
+                        <button class="btn-primary" onclick="startMockInterview()">
+                            <i class="fas fa-video"></i> Start Mock Interview
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section">
+        <div class="container">
+            <h2 data-aos="fade-up">🚀 Why Choose CareerBoost?</h2>
+            <div class="features-grid">
+                <div class="feature" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fas fa-robot"></i>
+                    <h3>AI-Powered</h3>
+                    <p>Advanced AI algorithms for personalized career guidance</p>
+                </div>
+                <div class="feature" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>Mobile Ready</h3>
+                    <p>Works seamlessly on all devices - phone, tablet, desktop</p>
+                </div>
+                <div class="feature" data-aos="fade-up" data-aos-delay="300">
+                    <i class="fas fa-download"></i>
+                    <h3>Offline Access</h3>
+                    <p>Progressive Web App - works even without internet</p>
+                </div>
+                <div class="feature" data-aos="fade-up" data-aos-delay="400">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Secure & Private</h3>
+                    <p>Your data is encrypted and stored securely</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><i class="fas fa-graduation-cap"></i> CareerBoost</h3>
+                    <p>Empowering students with AI-driven career guidance and opportunities</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="#resume">Resume Builder</a>
+                    <a href="#career">Career Guide</a>
+                    <a href="#jobs">Job Listings</a>
+                    <a href="#interview">Interview Prep</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <a href="#">Career Tips</a>
+                    <a href="#">Salary Guide</a>
+                    <a href="#">Interview Questions</a>
+                    <a href="#">Resume Templates</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p><i class="fas fa-envelope"></i> support@careerboost.com</p>
+                    <p><i class="fas fa-phone"></i> +91 9876543210</p>
+                    <p><i class="fas fa-map-marker-alt"></i> India</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 CareerBoost. All rights reserved. Made with ❤️ for students</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <div id="skillsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('skillsModal')">&times;</span>
+            <h2><i class="fas fa-brain"></i> Skills Assessment Results</h2>
+            <div id="skillsAssessment" class="modal-body"></div>
+        </div>
+    </div>
+
+    <div id="careerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('careerModal')">&times;</span>
+            <h2><i class="fas fa-route"></i> Career Path Recommendations</h2>
+            <div id="careerRecommendations" class="modal-body"></div>
+        </div>
+    </div>
+
+    <div id="salaryModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('salaryModal')">&times;</span>
+            <h2><i class="fas fa-chart-line"></i> Salary Insights</h2>
+            <div id="salaryInsights" class="modal-body"></div>
+        </div>
+    </div>
+
+    <div id="skillRecommendationsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('skillRecommendationsModal')">&times;</span>
+            <h2><i class="fas fa-lightbulb"></i> Skill Recommendations</h2>
+            <div id="skillRecommendationsContent" class="modal-body"></div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>AI is working its magic...</p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="script.js"></script>
+</body>
+</html>
